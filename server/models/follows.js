@@ -1,6 +1,6 @@
 var neoprene = require('neoprene');
 var Schema = neoprene.Schema;
-neoprene.connect(require('../../config').host);
+neoprene.connect(process.env.NEO4J_URL || require('../../config').host);
 
 var FollowsSchema = new Schema({
   created: { type: Date }

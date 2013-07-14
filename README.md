@@ -1,13 +1,13 @@
 # Neoprene Template
 
 This is a template app showing the use of [Neo4j][] from Node.js. It uses the
-[neoprene][] library, available on npm as `neo4j`.
+[neoprene][] library, available on npm as `neoprene`.
 
 The app is a simple social network manager: it lets you add and remove users
 and "follows" relationships between them.
 
 This app supports deploying to Heroku, and a demo is in fact running live at
-[http://node-neo4j-template.herokuapp.com/](http://node-neo4j-template.herokuapp.com/).
+[http://neoprene-template.herokuapp.com//](http://neoprene-template.herokuapp.com//).
 
 So try it out, browse the code, and fork this project to get a head start on
 creating your own Node-Neo4j app. Enjoy!

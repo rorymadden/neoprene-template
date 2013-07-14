@@ -52,8 +52,6 @@ exports.show = function (req, res, next) {
  * POST /users/:id
  */
 exports.edit = function (req, res, next) {
-  console.log('id '+req.params.id)
-  console.log('body '+JSON.stringify(req.body))
   User.findByIdAndUpdate(req.params.id, req.body, function(err, user){
     if(err) return res.json(500, err);
     else return res.json(200);

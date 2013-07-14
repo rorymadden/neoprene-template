@@ -5,7 +5,7 @@
 
 var neoprene = require('neoprene');
 var Schema = neoprene.Schema;
-neoprene.connect(require('../../config').host);
+neoprene.connect(process.env.NEO4J_URL || require('../../config').host);
 
 // need to load in related relationships - this is important as the system needs to know how to handle
 // the relationship when it is returned in a query later.
