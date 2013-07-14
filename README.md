@@ -18,8 +18,6 @@ creating your own Node-Neo4j app. Enjoy!
 ## Install the required dependencies
 npm install
 
-bower install
-
 ## Install a local Neo4j instance (MUST BE > 2.0)
 [Neo4j download][]. The community edition is the best to choose for now.
 
@@ -38,7 +36,7 @@ npm start
 
 The app will now be accessible at [http://localhost:3000/](http://localhost:3000/).
 
-The UI is done with AngularJS. If this is confusing for you, sorry. The interesting code is in the 'server' folder anyway. If there are big problems with the angul front end let me know and I'll create a basic version as well.
+The UI is done with AngularJS. If this is confusing for you, sorry. The interesting code is in the 'server' folder anyway. If there are big problems with the angular front end let me know and I'll create a basic version as well.
 
 
 # Others
