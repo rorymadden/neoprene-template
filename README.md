@@ -6,8 +6,7 @@ This is a template app showing the use of [Neo4j][] from Node.js. It uses the
 The app is a simple social network manager: it lets you add and remove users
 and "follows" relationships between them.
 
-This app supports deploying to Heroku, and a demo is in fact running live at
-[http://neoprene-template.herokuapp.com//](http://neoprene-template.herokuapp.com//).
+This app supports deploying to Heroku but unfortunately at this time heroku do not have support for Neo4j 2.0.
 
 So try it out, browse the code, and fork this project to get a head start on
 creating your own Node-Neo4j app. Enjoy!
