@@ -1,3 +1,3 @@
 module.exports = {
-  host:"http://localhost:7476"
+  host:"http://localhost:7474"
 };

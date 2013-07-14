@@ -5,8 +5,7 @@ angular.module('neopreneTemplateApp', ['users'])
     $locationProvider.html5Mode(true);
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        templateUrl: 'views/main.html'
       })
       .when('/users/new', {
         templateUrl: 'views/userCreate.html',
