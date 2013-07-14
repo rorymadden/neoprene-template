@@ -1,0 +1,7 @@
+<div ng-controller="UserListCtrl">
+  <button class="btn btn-primary" ng-click="create()">Create a New User</button>
+  <hr>
+  <ul>
+      <li class="hand" ng-repeat="user in users" ng-click="navigateTo(user._id)">{{user.name}}</li>
+  </ul>
+</div>

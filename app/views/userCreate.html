@@ -1,0 +1,33 @@
+<div>
+  <div class="span3" data-ng-include data-src="'views/userList.html'"></div>
+  <div  class="span8">
+    <form class="well form-horizontal" name="UserForm">
+      <div class="control-group">
+        <div class="controls">
+          <input class="input-small" name="first" data-ng-model='user.first' type='text' required placeholder="First Name">
+          &nbsp; &nbsp;
+          <input class="input-small" name="last" data-ng-model='user.last' type='text' required placeholder="Last Name">
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <input class="input-large" name="email" data-ng-model='user.email' type='email' required placeholder="Email Address">
+          <span class="help-block" data-ng-show="UserForm.email.$invalid && UserForm.email.$dirty"><small>Please enter a valid email.</small></span>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <select data-ng-model="user.gender" class="input-large" name="gender" required>
+            <option value="">-- Please Select --</option>
+            <option ng-repeat="gender in genders" value="{{gender.value}}">{{gender.name}}</option>
+    ￼￼￼￼￼￼</select>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <button class="btn btn-primary btn-large input-xlarge" ng-click="submit()" data-ng-disabled="UserForm.$invalid">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

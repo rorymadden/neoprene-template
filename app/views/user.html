@@ -1,0 +1,74 @@
+<div>
+  <div class="span3" data-ng-include data-src="'views/userList.html'"></div>
+  <div class="span8">
+    <form class="well form-horizontal" name="EditUser">
+      <div class="control-group">
+        <label class="control-label" for='first'>First Name</label>
+        <div class="controls">
+          <input class="span3" type='text' ng-model="user.first" required ng-disabled="!editCheck()">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" for='name'>Last Name</label>
+        <div class="controls">
+          <input class="span3" type='text' ng-model="user.last" required ng-disabled="!editCheck()">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" for='email'>Email</label>
+        <div class="controls">
+          <input class="span3" type='email' ng-model="user.email" required ng-disabled="!editCheck()">
+          <span class="help-block" data-ng-show="EditUser.email.$invalid && EditUser.email.$dirty"><small>Please enter a valid email.</small></span>
+        </div>
+      </div>
+
+
+      <div class="control-group">
+        <label class="control-label" for='gender'>Gender</label>
+        <div class="controls">
+          <select data-ng-model="user.gender" class="input-large" ng-disabled="!editCheck()" required>
+            <option value="">-- Please Select --</option>
+            <option ng-repeat="gender in genders" value="{{gender.value}}" ng-selected="gender.value == user.gender">{{gender.name}}</option>
+  ￼￼￼￼￼￼￼￼</select>
+          <span class="help-block" data-ng-show="EditUser.gender.$error.required && EditUser.gender.$dirty">Please select a gender.</span>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn-primary" ng-show="!editCheck()" ng-click="edit()">Edit</button>
+        <button class="btn btn-primary" ng-show="!editCheck()" ng-click="remove()">Delete</button>
+        <button class="btn btn-primary" ng-show="editCheck()" ng-click="update()" ng-disabled="EditProfile.$invalid">Update</button>
+        <span ng-show="editCheck()">or <a class="hand" ng-click="cancelEdit()">cancel</a></span>
+      </div>
+    </form>
+    <div class = "row">
+      <div class="span4">
+        <h3>Following ({{followings.length}})</h3>
+        <ul>
+          <li class="hand" ng-repeat="following in followings" ng-click="show(user._id)">{{following.name}} <i class="icon-remove" ng-click="unfollow(user._id, following)"></i> <small>{{following.created | moment}}</small></li>
+        </ul>
+
+        <!-- Add in form to add followers -->
+        <form ng-show='othersExist()' name="followForm">
+          <select ng-model="otherUser" class="input-large" required>
+            <option ng-repeat="other in others" value="{{other}}">{{other.name}}</option>
+          </select>
+          <button class="btn btn-primary btn-large input-xlarge" ng-click="follow(user._id)" data-ng-disabled="followForm.$invalid">Follow</button>
+        </form>
+        <p ng-show="!othersExist()">There's no one else left for {{user.first}} to follow!</p>
+
+      </div>
+      <div class="span4">
+        <h3>Followers ({{followers.length}})</h3>
+        <ul ng-show="followersExist()">
+          <li class="hand" ng-repeat="follower in followers" ng-click="show(user._id)">{{follower.name}} <small>{{follower.created | moment}}</small></li>
+        </ul>
+        <p ng-show="!followersExist()">{{user.first}} has no followers yet.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
