@@ -47,7 +47,7 @@
       <div class="span4">
         <h3>Following ({{followings.length}})</h3>
         <ul>
-          <li class="hand" ng-repeat="following in followings" ng-click="show(user._id)">{{following.name}} <i class="icon-remove" ng-click="unfollow(user._id, following)"></i> <small>{{following.created | moment}}</small></li>
+          <li class="hand" ng-repeat="following in followings" ng-click="show(following._id)">{{following.name}} <i class="icon-remove" ng-click="unfollow(user._id, following)"></i> <small>{{following.created | moment}}</small></li>
         </ul>
 
         <!-- Add in form to add followers -->
@@ -63,7 +63,7 @@
       <div class="span4">
         <h3>Followers ({{followers.length}})</h3>
         <ul ng-show="followersExist()">
-          <li class="hand" ng-repeat="follower in followers" ng-click="show(user._id)">{{follower.name}} <small>{{follower.created | moment}}</small></li>
+          <li class="hand" ng-repeat="follower in followers" ng-click="show(follower._id)">{{follower.name}} <small>{{follower.created | moment}}</small></li>
         </ul>
         <p ng-show="!followersExist()">{{user.first}} has no followers yet.</p>
       </div>

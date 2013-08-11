@@ -1,3 +1,5 @@
+'use strict';
+
 // users.js
 // Routes to CRUD users.
 
@@ -6,7 +8,7 @@ var User = require('../models/user');
 /**
  * GET /users
  */
-exports.list = function (req, res, next) {
+exports.list = function (req, res) {
   User.find(function (err, users) {
     if (err) return next(err);
     res.json(200, users);
@@ -16,7 +18,7 @@ exports.list = function (req, res, next) {
 /**
  * POST /users
  */
-exports.create = function (req, res, next) {
+exports.create = function (req, res) {
   // would add some validation here
   var user = new User({
     first: req.body.first,
@@ -25,7 +27,7 @@ exports.create = function (req, res, next) {
     gender: req.body.gender
   });
 
-  user.save(function(err, user){
+  user.create(function(err, user){
     if(err) return res.json(500, err);
     else return res.json(200, user);
   });
@@ -34,7 +36,7 @@ exports.create = function (req, res, next) {
 /**
  * GET /users/:id
  */
-exports.show = function (req, res, next) {
+exports.show = function (req, res) {
   var response = {};
   User.findById(req.params.id, function (err, user) {
     if (err) return res.json(412, err);
@@ -51,18 +53,18 @@ exports.show = function (req, res, next) {
 /**
  * POST /users/:id
  */
-exports.edit = function (req, res, next) {
+exports.edit = function (req, res) {
   User.findByIdAndUpdate(req.params.id, req.body, function(err, user){
     if(err) return res.json(500, err);
-    else return res.json(200);
+    else return res.json(200, user);
   });
 };
 
 /**
  * DELETE /users/:id
  */
-exports.del = function (req, res, next) {
-  User.findByIdAndRemove(req.params.id, {remove: {force: true}}, function(err, user){
+exports.del = function (req, res) {
+  User.findByIdAndRemove(req.params.id, {remove: {force: true}}, function(err){
     if(err) return res.json(500, err);
     else return res.json(200);
   });
@@ -71,8 +73,15 @@ exports.del = function (req, res, next) {
 /**
  * POST /users/:id/follow
  */
-exports.follow = function (req, res, next) {
-  User.follow(parseInt(req.params.id), req.body._id, function (err, rel) {
+exports.follow = function (req, res) {
+  var relationship = {
+    from: parseInt(req.params.id, 10),
+    fromType: 'User',
+    to: parseInt(req.body._id, 10),
+    toType: 'User',
+    type: 'Follows'
+  };
+  User.createRelationship(relationship, function (err, rel) {
     if(err) return res.json(500, err);
     else return res.json(200, rel);
   });
@@ -81,8 +90,13 @@ exports.follow = function (req, res, next) {
 /**
  * POST /users/:id/unfollow
  */
-exports.unfollow = function (req, res, next) {
-  User.unfollow(parseInt(req.params.id), req.body.id, function (err) {
+exports.unfollow = function (req, res) {
+  var relationship ={
+    rel: req.body.relId,
+    fromType: 'User',
+    toType: 'User'
+  };
+  User.removeRelationship(relationship, function (err) {
     if(err) return res.json(500, err);
     else return res.json(200);
   });

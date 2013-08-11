@@ -48,10 +48,11 @@ angular.module('users', [])
       var len = data.results.rels.length;
       var followers = [], followings = [];
       for(var i = 0; i< len ; i++){
-        var item = data.results.nodes[i];
-        item.created = data.results.rels[i].data.created;
-        if(data.results.rels[i].direction === 'out') $scope.followings.push(data.results.nodes[i]);
-        if(data.results.rels[i].direction === 'in') $scope.followers.push(data.results.nodes[i]);
+        // var item = data.results.nodes[i];
+        // item.created = data.results.rels[i].data.created;
+        data.results.nodes[i].relId = data.results.rels[i]._id;
+        if(data.results.rels[i]._direction === 'out') $scope.followings.push(data.results.nodes[i]);
+        if(data.results.rels[i]._direction === 'in') $scope.followers.push(data.results.nodes[i]);
       }
 
       // create an array of users who cannot be followed (e.g. already being followed)
@@ -138,8 +139,9 @@ angular.module('users', [])
 
   $scope.follow = function(id){
     $http.post('/api/users/' + id + '/follow', $scope.otherUser)
-      .success(function(){
+      .success(function(data){
         $scope.otherUser = JSON.parse($scope.otherUser);
+        $scope.otherUser.relId = data._id;
 
         //Update the following list
         $scope.followings.push($scope.otherUser);
@@ -155,7 +157,7 @@ angular.module('users', [])
   };
 
   $scope.unfollow = function(id, other){
-    $http.post('/api/users/' + id + '/unfollow', {id: other._id})
+    $http.post('/api/users/' + id + '/unfollow', {relId: other.relId})
       .success(function(){
         //remove from the following list
         $scope.followings.splice($scope.followings.indexOf(other), 1);
@@ -163,10 +165,15 @@ angular.module('users', [])
         $scope.others.push(other);
       });
   };
+
+  $scope.show = function(id){
+    // $location.path('/users/632');
+    $location.path('/users/' + id);
+  };
 }])
 
 .filter('moment', function() {
   return function(dateString) {
-      return moment(dateString).fromNow();
+    return moment(dateString).fromNow();
   };
-});;
+});
